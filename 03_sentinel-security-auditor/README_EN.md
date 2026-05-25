@@ -1,14 +1,14 @@
 # Sentinel Security Auditor: Automated Vulnerability & GDPR SaaS Compliance Platform
 
-This repository module showcases the architecture of **Sentinel**, a production-ready, SaaS-enabled security auditing and continuous monitoring platform. 
+This repository module showcases the architecture of **Sentinel**, an advanced modular SaaS prototype for automated security auditing and continuous monitoring. 
 
-Sentinel operates as the automated guardian of our infrastructure, combining industry-standard vulnerability scanning utilities with local LLM threat assessment, forensic logging, GDPR compliance enforcement, and a dynamic escalation framework (the DEFQON system).
+Sentinel serves as a continuous validation component of our infrastructure, combining industry-standard vulnerability scanning utilities with local LLM threat assessment, forensic logging, GDPR compliance enforcement, and a system severity level escalation engine.
 
 ---
 
 ## 1. Architectural System Overview
 
-Sentinel is designed as a decoupled, secure multi-tenant microservice. It exposes a rate-limited API gateway that schedules automated network audits, processes SaaS billing webhooks, and broadcasts system threat levels.
+Sentinel is designed as a decoupled, secure multi-tenant microservice. It exposes a rate-limited API gateway that schedules automated network audits, processes SaaS billing webhooks, and broadcasts system severity levels.
 
 ```mermaid
 graph TD
@@ -26,8 +26,8 @@ graph TD
     subgraph Intelligence & Escalation
         Nmap & Nikto & OWASP --> ThreatCollector[Threat & Finding Collector]
         ThreatCollector --> LocalLLM[Ollama Threat Classifier<br/>llama3:8b]
-        LocalLLM --> DEFQON{DEFQON Escalation Engine}
-        DEFQON -->|State Change| EventBus[ALLIE Event Bus Alert]
+        LocalLLM --> SeverityEngine{System Severity Escalator}
+        SeverityEngine -->|State Change| EventBus[ALLIE Event Bus Alert]
     end
     
     subgraph Data & Billing Layer
@@ -38,7 +38,7 @@ graph TD
     end
     
     style APIGateway fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
-    style DEFQON fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
+    style SeverityEngine fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
     style PostgreSQL fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
 ```
 
@@ -53,19 +53,19 @@ Sentinel schedules and executes non-destructive security audits:
 * **Web Application Testing**: Coordinates `OWASP ZAP` passive checks to identify common vulnerabilities (SQLi, XSS, CSRF, insecure CORS policies).
 * **LLM-Enhanced Summaries**: The raw log findings are parsed by a local `llama3:8b` model to generate human-readable security risk summaries and step-by-step mitigation advice.
 
-### 2.2 Dynamic Threat Level Escalation (DEFQON System)
-Sentinel monitors host audit logs and network intrusion indicators to maintain a global threat level system containing 6 escalation stages:
-* **DEFQON Levels**:
-  * `5` / **Normal**: Standard operations.
+### 2.2 System Severity Level Escalation Engine
+Sentinel monitors host audit logs and network intrusion indicators to maintain a global system severity level classification containing 6 escalation stages:
+* **System Severity Levels**:
+  * `5` / **Normal**: Standard daily operations.
   * `4` / **Elevated**: Minor anomaly indicators (increased port scans).
   * `3` / **Alert**: Validated vulnerability discovered on non-critical targets.
   * `2` / **High**: Out-of-bounds filesystem actions detected.
-  * `1` / **Maximum**: Active security breach or root boundary violation.
-  * `W` / **Warning**: Immediate lock-down / maintenance fallback.
-* **ALLIE Bridge**: Any state transition triggers a signed JSON payload dispatched to ALLIE’s Event Bus, notifying security administrators via push alerts, phone triggers, or automated email drafts.
+  * `1` / **Critical**: Active security breach or root boundary violation.
+  * `W` / **Lockdown**: Immediate maintenance fallback or container isolations.
+* **ALLIE Bridge**: Any state transition triggers a signed JSON payload dispatched to ALLIE’s Event Bus, notifying system administrators via push alerts, phone triggers, or automated email drafts.
 
 ### 2.3 SaaS Readiness & Webhook Orchestration
-Sentinel features a fully transactional subscription model supporting three tiers:
+Sentinel features a transactional subscription model supporting three conceptual tiers:
 * **Subscription Tiers**:
   * **Starter (€199/mo)**: 3 target hosts, 120s scan timeout, basic auditing.
   * **Pro (€699/mo)**: 10 target hosts, 300s timeout, adds authenticated scanning.
@@ -83,7 +83,7 @@ To guarantee the highest data privacy standards, Sentinel features a native priv
 
 ## 3. Abstract Logic: Event Verification & Webhook Authentication
 
-The following abstract Python script illustrates Sentinel’s approach to cryptographically validating external payment webhooks and processing DEFQON alerts:
+The following abstract Python script illustrates Sentinel’s approach to cryptographically validating external payment webhooks and processing severity alerts:
 
 ```python
 # Sentinel Security Auditor - Security & Event Verification (Sanitized Model)
@@ -109,22 +109,22 @@ class WebhookAuthenticator:
         
         return hmac.compare_digest(computed_sig, signature_header)
 
-class DefqonEscalator:
+class SeverityLevelEscalator:
     def __init__(self, initial_level: str = "5"):
         self.current_level = initial_level
 
     def evaluate_threat(self, scan_report: dict) -> str:
-        """Determines the system DEFQON state based on automated audit findings."""
+        """Determines the system severity state based on automated audit findings."""
         critical_count = sum(1 for f in scan_report.get("findings", []) if f["severity"] == "CRITICAL")
         high_count = sum(1 for f in scan_report.get("findings", []) if f["severity"] == "HIGH")
         
         # Threat evaluation heuristics
         if critical_count > 0:
-            new_level = "2"  # DEFQON 2 - High Threat
+            new_level = "2"  # Severity 2 - High Threat
         elif high_count >= 3:
-            new_level = "3"  # DEFQON 3 - Alert State
+            new_level = "3"  # Severity 3 - Alert State
         else:
-            new_level = "5"  # DEFQON 5 - Normal
+            new_level = "5"  # Severity 5 - Normal
             
         if new_level != self.current_level:
             self.current_level = new_level
@@ -136,12 +136,12 @@ class DefqonEscalator:
         """Constructs and signs the ALLIE Bridge alert payload."""
         payload = {
             "source": "sentinel",
-            "event_type": "DEFQON_CHANGE",
-            "defqon_level": level,
+            "event_type": "SEVERITY_LEVEL_CHANGE",
+            "severity_level": level,
             "timestamp": "2026-05-25T18:00:00Z"
         }
         # In practice: Post signed JSON to ALLIE's secure Event Bus
-        print(f"DEFQON State Changed to {level}. Dispatching alert to Event Bus.")
+        print(f"System Severity Level Changed to {level}. Dispatching alert to Event Bus.")
 ```
 
 ---

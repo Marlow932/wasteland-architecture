@@ -1,14 +1,14 @@
 # Sentinel Security Auditor: Automatisierte Schwachstellen-Audits & GDPR-SaaS-Compliance
 
-Dieses Repository-Modul beschreibt die Architektur und Systemstruktur von **Sentinel**, einer produktionsbereiten, mandantenfähigen (SaaS) Sicherheitsprüfungs- und kontinuierlichen Überwachungsplattform.
+Dieses Repository-Modul beschreibt die Architektur und Systemstruktur von **Sentinel**, einem fortschrittlichen SaaS-Architektur-Prototyp für automatisierte Sicherheitsprüfungen und kontinuierliches Monitoring.
 
-Sentinel fungiert als automatisierter Wächter unserer Infrastruktur. Die Plattform kombiniert bewährte Tools zur Sicherheitsanalyse mit lokalen LLMs zur Bedrohungsbewertung, forensischer Protokollierung, automatisierter GDPR-Compliance und einem dynamischen Eskalationsrahmen (dem DEFQON-System).
+Sentinel dient als kontinuierliche Validierungskomponente der Infrastruktur. Die Plattform kombiniert bewährte Tools zur Sicherheitsanalyse mit lokalen LLMs zur Bedrohungsbewertung, forensischer Protokollierung, automatisierter GDPR-Compliance und einem System-Schweregrad-Eskalationssystem.
 
 ---
 
 ## 1. Architektonische Systemübersicht
 
-Sentinel ist als entkoppelter, sicherer Multi-Tenant-Microservice konzipiert. Der Service stellt ein API-Gateway bereit, das automatisierte Netzwerk-Audits koordiniert, SaaS-Abrechnungs-Webhooks empfängt und globale Bedrohungsstufen verwaltet.
+Sentinel ist als entkoppelter, sicherer Multi-Tenant-Microservice konzipiert. Der Service stellt ein API-Gateway bereit, das automatisierte Netzwerk-Audits koordiniert, SaaS-Abrechnungs-Webhooks empfängt und System-Schweregrade verwaltet.
 
 ```mermaid
 graph TD
@@ -26,8 +26,8 @@ graph TD
     subgraph Intelligence & Escalation
         Nmap & Nikto & OWASP --> ThreatCollector[Threat & Finding Collector]
         ThreatCollector --> LocalLLM[Ollama Threat Classifier<br/>llama3:8b]
-        LocalLLM --> DEFQON{DEFQON Escalation Engine}
-        DEFQON -->|Statusänderung| EventBus[ALLIE Event Bus Alert]
+        LocalLLM --> SeverityEngine{System-Schweregrad-Eskalator}
+        SeverityEngine -->|Statusänderung| EventBus[ALLIE Event Bus Alert]
     end
     
     subgraph Data & Billing Layer
@@ -38,7 +38,7 @@ graph TD
     end
     
     style APIGateway fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
-    style DEFQON fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
+    style SeverityEngine fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
     style PostgreSQL fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
 ```
 
@@ -53,16 +53,16 @@ Sentinel steuert und delegiert zerstörungsfreie Sicherheitsüberprüfungen:
 * **Web-Applikations-Audits**: Koordiniert `OWASP ZAP` (passive Prüfungen) zur Erkennung gängiger Schwachstellen (wie SQLi, XSS, CSRF und unsichere CORS-Einstellungen).
 * **KI-Bedrohungsberichte**: Ein lokales `llama3:8b`-Modell analysiert die rohen Logdateien und generiert verständliche Berichte mit konkreten Handlungsempfehlungen.
 
-### 2.2 Dynamisches Bedrohungs-Eskalationssystem (DEFQON)
-Sentinel überwacht Host-Audit-Logs und Anomalien im Netzwerk, um den globalen Sicherheitsstatus des Systems in 6 Eskalationsstufen zu steuern:
-* **DEFQON-Stufen**:
+### 2.2 System-Schweregrad-Eskalationssystem
+Sentinel überwacht Host-Audit-Logs und Anomalien im Netzwerk, um den globalen Sicherheitsstatus des Systems in 6 Schweregrad-Stufen zu steuern:
+* **System-Schweregrad-Stufen**:
   * `5` / **Normal**: Standardbetrieb.
   * `4` / **Elevated**: Leichte Anomalien (z. B. erhöhte Port-Scans).
   * `3` / **Alert**: Bestätigte Schwachstelle auf unkritischen Systemen.
   * `2` / **High**: Unberechtigte Dateisystem-Aktivitäten detektiert.
-  * `1` / **Maximum**: Aktiver Sicherheitsvorfall oder Boundary-Verletzung.
-  * `W` / **Warning**: Sofortiger Wartungsmodus / Lockdown-Fallback.
-* **ALLIE-Bridge**: Jede Änderung des DEFQON-Status sendet ein signiertes JSON-Paket an ALLIEs Event-Bus, um Systemadministratoren über Push-Meldungen, Anrufe oder E-Mails zu alarmieren.
+  * `1` / **Critical**: Aktiver Sicherheitsvorfall oder Boundary-Verletzung.
+  * `W` / **Lockdown**: Sofortiger Wartungsmodus / Container-Isolierung.
+* **ALLIE-Bridge**: Jede Änderung des Schweregrads sendet ein signiertes JSON-Paket an ALLIEs Event-Bus, um Systemadministratoren über Push-Meldungen, Anrufe oder E-Mails zu alarmieren.
 
 ### 2.3 SaaS-Readiness & Webhook-Integration
 Sentinel verfügt über ein transaktionales Abonnement-Modell mit drei Stufen:
@@ -81,7 +81,7 @@ Zum Schutz sensibler Benutzerdaten enthält Sentinel eine native Datenschutz-Eng
 
 ---
 
-## 3. Abstrahierte Logik: Webhook-Verifizierung & DEFQON-Evaluation
+## 3. Abstrahierte Logik: Webhook-Verifizierung & Schweregrad-Evaluation
 
 Der folgende, sanitisierte Python-Code zeigt die Implementierung von Sentinels kryptografischer Webhook-Prüfung und Bedrohungs-Klassifizierung:
 
@@ -109,22 +109,22 @@ class WebhookAuthenticator:
         
         return hmac.compare_digest(computed_sig, signature_header)
 
-class DefqonEscalator:
+class SchweregradLevelEscalator:
     def __init__(self, initial_level: str = "5"):
         self.current_level = initial_level
 
     def evaluate_threat(self, scan_report: dict) -> str:
-        """Klassifiziert den DEFQON-Status basierend auf den Schwachstellen-Scans."""
+        """Klassifiziert den System-Schweregrad basierend auf den Schwachstellen-Scans."""
         critical_count = sum(1 for f in scan_report.get("findings", []) if f["severity"] == "CRITICAL")
         high_count = sum(1 for f in scan_report.get("findings", []) if f["severity"] == "HIGH")
         
-        # Bedrohungs-Klassifizierung
+        # Schweregrad-Klassifizierung
         if critical_count > 0:
-            new_level = "2"  # DEFQON 2 - High Threat
+            new_level = "2"  # Schweregrad 2 - Hoch
         elif high_count >= 3:
-            new_level = "3"  # DEFQON 3 - Alert State
+            new_level = "3"  # Schweregrad 3 - Alert
         else:
-            new_level = "5"  # DEFQON 5 - Normal
+            new_level = "5"  # Schweregrad 5 - Normal
             
         if new_level != self.current_level:
             self.current_level = new_level
@@ -136,12 +136,12 @@ class DefqonEscalator:
         """Erzeugt und signiert die ALLIE-Bridge-Event-Payload."""
         payload = {
             "source": "sentinel",
-            "event_type": "DEFQON_CHANGE",
-            "defqon_level": level,
+            "event_type": "SCHWEREGRAD_LEVEL_AENDERUNG",
+            "severity_level": level,
             "timestamp": "2026-05-25T18:00:00Z"
         }
         # Praktische Umsetzung: Sende JSON an den sicheren Event-Bus von ALLIE
-        print(f"DEFQON-Status geändert auf {level}. Sende Alert an den Event-Bus.")
+        print(f"System-Schweregrad geändert auf {level}. Sende Alert an den Event-Bus.")
 ```
 
 ---

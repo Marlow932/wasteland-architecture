@@ -53,24 +53,24 @@ graph TB
 
 Das Ökosystem ist in **8 dokumentierte Projekt-Module** unterteilt, die jeweils einen spezifischen Schwerpunkt unserer Entwicklung und KI-Orchestrierung repräsentieren:
 
-1. **[01_wasteland-core-framework](file:///d:/wasteland-architecture/01_wasteland-core-framework/README_DE.md)**
+1. **[01_wasteland-core-framework](./01_wasteland-core-framework/README_DE.md)**
    * **Schwerpunkt**: Workflow-Ausführungsgrenzen, Berechtigungsmodelle und Human-in-the-Loop-Prozesse (HITL).
-2. **[02_allie-meta-orchestrator](file:///d:/wasteland-architecture/02_allie-meta-orchestrator/README_DE.md)**
+2. **[02_allie-meta-orchestrator](./02_allie-meta-orchestrator/README_DE.md)**
    * **Schwerpunkt**: Sprach-IVR-Telefonie-Integration (Asterisk SIP/PJSIP), personalisierte XTTS-Sprachsynthese, E-Mail-Parsing und Multi-Agenten-Steuerung.
-3. **[03_sentinel-security-auditor](file:///d:/wasteland-architecture/03_sentinel-security-auditor/README_DE.md)**
+3. **[03_sentinel-security-auditor](./03_sentinel-security-auditor/README_DE.md)**
    * **Schwerpunkt**: Automatisierte Schwachstellen-Scans, SaaS-Abrechnungs-Schnittstellen, passive Sicherheitsaudits, GDPR-konforme Daten-Gates und dynamische Bedrohungs-Eskalation (DEFQON-System).
-4. **[04_offline-coding-agent](file:///d:/wasteland-architecture/04_offline-coding-agent/README_DE.md)**
+4. **[04_offline-coding-agent](./04_offline-coding-agent/README_DE.md)**
    * **Schwerpunkt**: Hochleistungsfähige, lokale GPU-gestützte Code-Inferenz (`DeepSeek-Coder-33B`), RAG-gestützte Code-Wissensdatenbanken und native VS-Code-Integration.
-5. **[05_map-creation-agent](file:///d:/wasteland-architecture/05_map-creation-agent/README_DE.md)**
+5. **[05_map-creation-agent](./05_map-creation-agent/README_DE.md)**
    * **Schwerpunkt**: Bildverarbeitungs- und OCR-gestützte GUI-Automatisierung proprietärer 3D-Software (World Creator), sichere Betriebssystem-Control-Wrapper und Generierung von Höhendaten.
-6. **[06_business-suite-frontend](file:///d:/wasteland-architecture/06_business-suite-frontend/README_DE.md)**
+6. **[06_business-suite-frontend](./06_business-suite-frontend/README_DE.md)**
    * **Schwerpunkt**: Performante Vanilla-Frontend-Entwicklung, Lighthouse-Score-Optimierung (95+), barrierefreie CI/CD-Pipelines, PWA-Funktionen und automatisierte Releases.
-7. **[07_valuation-strategy-agent](file:///d:/wasteland-architecture/07_valuation-strategy-agent/README_DE.md)**
+7. **[07_valuation-strategy-agent](./07_valuation-strategy-agent/README_DE.md)**
    * **Schwerpunkt**: CFO-Analysetool, automatisierte Generierung von Startup-Scorecards, Low-/Base-/High-Unternehmensbewertungsmodelle und Google-Sheets-Exporte.
-8. **[08_marketing-growth-agents](file:///d:/wasteland-architecture/08_marketing-growth-agents/README_DE.md)**
+8. **[08_marketing-growth-agents](./08_marketing-growth-agents/README_DE.md)**
    * **Schwerpunkt**: Zielgruppen-Analysetools, automatisiertes Social-Media-Performance-Scoring (YouTube, TikTok) und Outreach-Systeme.
 
-Für eine vollständige Übersicht über alle erkannten Projekte, Pfade und den Redaction-Status lesen Sie das **[PROJECT_INDEX.md](file:///d:/wasteland-architecture/PROJECT_INDEX.md)**.
+Für eine vollständige Übersicht über alle erkannten Projekte, Pfade und den Redaction-Status lesen Sie das **[PROJECT_INDEX.md](./PROJECT_INDEX.md)**.
 
 ---
 
@@ -103,7 +103,7 @@ Dieses Ökosystem demonstriert zentrale softwarearchitektonische Paradigmen unte
 
 ## Schwärzungs- und Schutzstrategie (Redaction Notice)
 
-Dieses Repository folgt einer proaktiven **Schutz- und Anonymisierungsstrategie**, die im Detail unter **[REDACTION_NOTICE_DE.md](file:///d:/wasteland-architecture/REDACTION_NOTICE_DE.md)** beschrieben ist.
+Dieses Repository folgt einer proaktiven **Schutz- und Anonymisierungsstrategie**, die im Detail unter **[REDACTION_NOTICE_DE.md](./REDACTION_NOTICE_DE.md)** beschrieben ist.
 Wir betrachten den Schutz unserer produktiven Infrastruktur als Zeichen professioneller Reife. Zur Veranschaulichung der Systemkomplexität nutzen wir UML-Diagramme, Sequenzdiagramme und abstrakte Strukturdefinitionen:
 
 * **Sanitierung von Secrets**: Keine Live-Tokens, privaten Mail-Konfigurationen oder aktiven SIP-Registrierungen.

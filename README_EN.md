@@ -53,24 +53,24 @@ graph TB
 
 The ecosystem is divided into **8 documented project modules**, each showcasing a distinct area of fullstack development and AI orchestration:
 
-1. **[01_wasteland-core-framework](file:///d:/wasteland-architecture/01_wasteland-core-framework/README_EN.md)**
+1. **[01_wasteland-core-framework](01_wasteland-core-framework/README_EN.md)**
    * **Focus**: Workflow execution boundaries, permission models, and human-in-the-loop (HITL) compliance.
-2. **[02_allie-meta-orchestrator](file:///d:/wasteland-architecture/02_allie-meta-orchestrator/README_EN.md)**
+2. **[02_allie-meta-orchestrator](02_allie-meta-orchestrator/README_EN.md)**
    * **Focus**: Voice IVR telephony integration (Asterisk SIP/PJSIP), custom voice clone pipelines, email parsing, and multi-agent coordination.
-3. **[03_sentinel-security-auditor](file:///d:/wasteland-architecture/03_sentinel-security-auditor/README_EN.md)**
-   * **Focus**: Automated vulnerability scanning, SaaS billing integrations, passive security auditing, GDPR data lifecycle gates, and dynamic threat escalation (DEFQON system).
-4. **[04_offline-coding-agent](file:///d:/wasteland-architecture/04_offline-coding-agent/README_EN.md)**
+3. **[03_sentinel-security-auditor](03_sentinel-security-auditor/README_EN.md)**
+   * **Focus**: Automated vulnerability scanning, SaaS billing integrations, passive security auditing, GDPR data lifecycle gates, and a system severity level escalation engine.
+4. **[04_offline-coding-agent](04_offline-coding-agent/README_EN.md)**
    * **Focus**: High-performance local GPU code intelligence models (`DeepSeek-Coder-33B`), RAG-assisted context generation, and VS Code integration.
-5. **[05_map-creation-agent](file:///d:/wasteland-architecture/05_map-creation-agent/README_EN.md)**
+5. **[05_map-creation-agent](05_map-creation-agent/README_EN.md)**
    * **Focus**: Computer-vision and OCR-based GUI software automation (World Creator), secure OS control wrappers, and spatial data generation.
-6. **[06_business-suite-frontend](file:///d:/wasteland-architecture/06_business-suite-frontend/README_EN.md)**
+6. **[06_business-suite-frontend](06_business-suite-frontend/README_EN.md)**
    * **Focus**: Vanilla high-performance frontend engineering, Lighthouse 95+ score optimization, automated accessibility pipelines, PWA integration, and automated deployments.
-7. **[07_valuation-strategy-agent](file:///d:/wasteland-architecture/07_valuation-strategy-agent/README_EN.md)**
+7. **[07_valuation-strategy-agent](07_valuation-strategy-agent/README_EN.md)**
    * **Focus**: CFO analytical engine, automated startup scorecard generation, base/low/high valuation models, and dynamic business data aggregation.
-8. **[08_marketing-growth-agents](file:///d:/wasteland-architecture/08_marketing-growth-agents/README_EN.md)**
+8. **[08_marketing-growth-agents](08_marketing-growth-agents/README_EN.md)**
    * **Focus**: Audience analytics tools, automated social media performance tracking (YouTube, TikTok), and outbound outreach engines.
 
-Refer to the complete directory index in **[PROJECT_INDEX.md](file:///d:/wasteland-architecture/PROJECT_INDEX.md)** for details on source paths, metadata status, and redaction flags.
+Refer to the complete directory index in **[PROJECT_INDEX.md](PROJECT_INDEX.md)** for details on source paths, metadata status, and redaction flags.
 
 ---
 
@@ -103,7 +103,7 @@ Through this architecture, Wasteland Interactive demonstrates several fundamenta
 
 ## Showcase Redaction Strategy
 
-This repository uses a proactive **Redaction & Sanitization Strategy** described in detail in **[REDACTION_NOTICE_EN.md](file:///d:/wasteland-architecture/REDACTION_NOTICE_EN.md)**. 
+This repository uses a proactive **Redaction & Sanitization Strategy** described in detail in **[REDACTION_NOTICE_EN.md](REDACTION_NOTICE_EN.md)**. 
 We believe that protecting operational infrastructure is a sign of engineering maturity. Our approach abstracts concrete internal details into robust UML diagrams, system sequence diagrams, and high-level architectural schemas:
 
 * **IP Sanitization**: No active server tokens, private email servers, or live SIP registrations.
