@@ -18,6 +18,7 @@ The following registry logs the technology stacks and sanitization status of the
 | **06** | **Business Suite Frontend** | HTML5, CSS3, Terser, cssnano, PWA | `06_business-suite-frontend/` | ⚙️ Active Release (PWA) | **YES** | Hosting deployment keys removed, sitemap configurations anonymized. |
 | **07** | **Valuation & Strategy Agent** | Python, Pandas, Google Sheets API | `07_valuation-strategy-agent/` | ⚙️ Strategic Analytics System | **YES** | Google Cloud Service credentials deleted, proprietary MRR multipliers generalized. |
 | **08** | **Marketing & Growth Agents** | YouTube & TikTok Data APIs, ChromaDB | `08_marketing-growth-agents/` | ⚙️ Analytical Outreach Engine | **YES** | TikTok/YouTube client secrets removed, outreach recipient datasets anonymized. |
+| **09** | **ALLIE Quant-Trader** | Freqtrade, CCXT, FastAPI, SQLite | `09_allie-quant-trader/` | ⚙️ Active Prototype (R&D) | **YES** | API secrets/tokens replaced by placeholders, local server IPs redacted, trading strategies generalized. |
 
 ---
 

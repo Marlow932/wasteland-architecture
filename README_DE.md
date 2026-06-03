@@ -69,6 +69,8 @@ Das Ökosystem ist in **8 dokumentierte Projekt-Module** unterteilt, die jeweils
    * **Schwerpunkt**: CFO-Analysetool, automatisierte Generierung von Startup-Scorecards, Low-/Base-/High-Unternehmensbewertungsmodelle und Google-Sheets-Exporte.
 8. **[08_marketing-growth-agents](08_marketing-growth-agents/README_DE.md)**
    * **Schwerpunkt**: Zielgruppen-Analysetools, automatisiertes Social-Media-Performance-Scoring (YouTube, TikTok) und Outreach-Systeme.
+9. **[09_allie-quant-trader](09_allie-quant-trader/README_DE.md)**
+   * **Schwerpunkt**: EventBus-Architektur, Sentinel-Watchdog, API-Integrationen mit Freqtrade-Instanzen, automatische Wiederherstellungsschleifen und lokale Desktop-UI-Widgets.
 
 Für eine vollständige Übersicht über alle erkannten Projekte, Pfade und den Redaction-Status lesen Sie das **[PROJECT_INDEX.md](PROJECT_INDEX.md)**.
 

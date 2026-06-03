@@ -69,6 +69,8 @@ The ecosystem is divided into **8 documented project modules**, each showcasing 
    * **Focus**: CFO analytical engine, automated startup scorecard generation, base/low/high valuation models, and dynamic business data aggregation.
 8. **[08_marketing-growth-agents](08_marketing-growth-agents/README_EN.md)**
    * **Focus**: Audience analytics tools, automated social media performance tracking (YouTube, TikTok), and outbound outreach engines.
+9. **[09_allie-quant-trader](09_allie-quant-trader/README_EN.md)**
+   * **Focus**: EventBus architecture, Sentinel watchdog supervision, API client integrations with Freqtrade instances, auto-recovery loops, and local desktop UI widgets.
 
 Refer to the complete directory index in **[PROJECT_INDEX.md](PROJECT_INDEX.md)** for details on source paths, metadata status, and redaction flags.
 
